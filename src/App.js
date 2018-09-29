@@ -34,6 +34,7 @@ class App extends Component {
           notes: 'Esta es una nota',
         },
       ],
+      formError: false,
     }
 
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
@@ -43,10 +44,14 @@ class App extends Component {
   handleFormSubmit(event) {
     event.preventDefault(); // Prevenir que se recargue la página
     const newName = event.target.name.value; // Obtener la información del input
+    const newPhone = event.target.phone.value;
+    const newAddress = event.target.address.value;
 
     // Creamos un objeto nuevo con la nueva info del contacto
     const newContact = { 
       name: newName,
+      phone: newPhone,
+      address: newAddress,
     }
 
     // Agregar objeto nuevo a la lista de contactos ya existente
@@ -84,7 +89,14 @@ class App extends Component {
           <h2>Agregar nuevo contacto:</h2>
           <form onSubmit={this.handleFormSubmit}>
             Nombre: <input type="text" name="name"/>
+            Teléfono: <input type="text" name="phone"/>
+            Dirección: <input type="text" name="address"/>
+            <button type="submit">Enviar</button>
           </form>
+          {
+            this.state.formError &&
+            <p style={{color: 'red'}}>Por favor, llenar todos los campos.</p>
+          }
         </section>
       </div>
     );
